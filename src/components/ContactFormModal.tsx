@@ -127,7 +127,7 @@ export function ContactFormModal({ onClose, onAdd }: Props) {
           id="contact-modal-description"
           className="mt-2 text-sm leading-6 text-slate-500"
         >
-          Suma a alguien a tu directorio. Los campos con * son obligatorios.
+          Los campos con * son obligatorios.
         </p>
         <form
           onSubmit={formik.handleSubmit}

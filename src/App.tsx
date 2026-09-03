@@ -34,46 +34,14 @@ export default function App() {
       >
         Ir al contenido
       </a>
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-8">
-          <div className="flex items-center gap-10">
-            <span className="text-base font-semibold text-slate-700">
-              React Challenge
-            </span>
-            <span className="hidden items-center gap-2 border-l border-slate-200 pl-8 text-sm text-slate-500 sm:flex">
-              <Icon name="grid" width="16" height="16" />
-              Espacio de trabajo
-            </span>
-          </div>
-          <span className="flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-600">
-            <span className="size-1.5 rounded-full bg-emerald-600" />
-            Directorio del equipo
-          </span>
-        </div>
-      </header>
       <main
         id="main"
         className="mx-auto max-w-7xl px-5 pt-8 pb-12 sm:px-8 sm:pt-10"
       >
-        <div className="mb-8 flex items-center gap-2 text-xs text-slate-500">
-          <span>Espacio de trabajo</span>
-          <Icon name="arrow" width="12" height="12" />
-          <span className="text-brand">Contactos</span>
-        </div>
-        <div className="mb-9 flex flex-wrap items-center justify-between gap-5">
-          <div>
-            <div className="mb-2 flex items-center gap-3">
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                Contactos
-              </h1>
-              <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-sm text-slate-600">
-                {loading ? '…' : contacts.length}
-              </span>
-            </div>
-            <p className="text-sm leading-6 text-slate-500">
-              Las personas de tu equipo, en un solo lugar.
-            </p>
-          </div>
+        <div className="mb-7 flex flex-wrap items-center justify-between gap-5">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Lista de contactos
+          </h1>
           <button
             onClick={() => setModalOpen(true)}
             disabled={loading || Boolean(error)}
@@ -89,8 +57,7 @@ export default function App() {
           onQueryChange={setQuery}
           onDepartmentChange={setDepartment}
         />
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-sm font-semibold">Tu directorio</h2>
+        <div className="mb-4">
           <p
             role="status"
             aria-atomic="true"
@@ -99,7 +66,7 @@ export default function App() {
             {loading
               ? 'Cargando…'
               : error
-                ? 'Directorio no disponible'
+                ? 'Lista no disponible'
                 : `${filteredContacts.length} ${filteredContacts.length === 1 ? 'contacto' : 'contactos'} de ${contacts.length}`}
           </p>
         </div>
@@ -126,13 +93,6 @@ export default function App() {
         ) : (
           <EmptyState filtered onAction={clearFilters} />
         )}
-        <footer className="mt-7 flex flex-wrap justify-between gap-3 text-xs text-slate-500">
-          <span>Un equipo conectado empieza con un buen directorio.</span>
-          <span className="flex items-center gap-1.5">
-            <Icon name="users" width="14" height="14" />
-            Hecho para trabajar juntos
-          </span>
-        </footer>
       </main>
       {modalOpen && (
         <ContactFormModal

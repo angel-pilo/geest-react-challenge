@@ -18,7 +18,7 @@ export function EmptyState({
       <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
         {filtered
           ? 'Prueba con otro nombre o departamento para encontrar a quien buscas.'
-          : 'Tu directorio empieza aquí. Agrega el primer contacto de tu equipo.'}
+          : 'Agrega un contacto para empezar.'}
       </p>
       {onAction && (
         <button

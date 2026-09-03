@@ -85,7 +85,7 @@ docs/REQUIREMENTS.md           Matriz de cumplimiento y verificación
 
 Los cambios viven únicamente en el estado de React durante la sesión. **Al recargar se restaura `data.json`**: no hay localStorage, backend, API, base de datos, autenticación ni servicios externos. Los datos de ejemplo son ficticios.
 
-Los filtros se mantienen al crear o eliminar: un contacto nuevo se muestra si coincide con los filtros activos. El contador junto al título indica el total; el contador del directorio indica los resultados filtrados. Nombre y email se guardan sin espacios en los extremos. El teléfono es libre y opcional. No se bloquean emails duplicados porque el requisito no lo solicita.
+La pantalla principal se llama “Lista de contactos” y reúne las acciones y filtros sin navegación adicional, logotipos ni frases decorativas. Los textos visibles orientan el uso de la aplicación; esta simplificación conserva todos los requisitos funcionales del PDF. Los filtros se mantienen al crear o eliminar: un contacto nuevo se muestra si coincide con los filtros activos. Un único contador indica los resultados filtrados y el total. Nombre y email se guardan sin espacios en los extremos. El teléfono es libre y opcional. No se bloquean emails duplicados porque el requisito no lo solicita.
 
 Se usan utilidades Tailwind, iconos SVG locales y fuentes del sistema, sin librería de componentes ni recursos remotos en tiempo de ejecución. La integración de Tailwind utiliza su [plugin oficial para Vite](https://tailwindcss.com/docs/installation/using-vite).
 
