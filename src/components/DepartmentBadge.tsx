@@ -8,5 +8,12 @@ const styles: Record<Department, string> = {
 }
 
 export function DepartmentBadge({ department }: { department: Department }) {
-  return <span className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${styles[department]}`}><span className="size-1.5 rounded-full bg-current" />{department}</span>
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${styles[department]}`}
+    >
+      <span className="size-1.5 rounded-full bg-current" />
+      {department}
+    </span>
+  )
 }

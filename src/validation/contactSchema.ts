@@ -10,7 +10,14 @@ export type ContactFormValues = {
 
 export const contactSchema = yup.object({
   name: yup.string().trim().required('Escribe el nombre del contacto.'),
-  email: yup.string().trim().email('Escribe un email válido.').required('Escribe el email del contacto.'),
+  email: yup
+    .string()
+    .trim()
+    .email('Escribe un email válido.')
+    .required('Escribe el email del contacto.'),
   phone: yup.string().trim(),
-  department: yup.string().oneOf(departments, 'Selecciona un departamento.').required('Selecciona un departamento.'),
+  department: yup
+    .string()
+    .oneOf(departments, 'Selecciona un departamento.')
+    .required('Selecciona un departamento.'),
 })

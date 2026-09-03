@@ -11,13 +11,21 @@ export function useContacts() {
     const controller = new AbortController()
     async function load() {
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}data.json`, { signal: controller.signal })
+        const response = await fetch(`${import.meta.env.BASE_URL}data.json`, {
+          signal: controller.signal,
+        })
         if (!response.ok) throw new Error('No se pudo cargar el directorio.')
         const data: unknown = await response.json()
-        if (!isContactArray(data)) throw new Error('El archivo de contactos tiene un formato inválido.')
+        if (!isContactArray(data))
+          throw new Error('El archivo de contactos tiene un formato inválido.')
         if (!controller.signal.aborted) setContacts(data)
       } catch (cause) {
-        if (!controller.signal.aborted) setError(cause instanceof Error ? cause.message : 'No se pudo cargar el directorio.')
+        if (!controller.signal.aborted)
+          setError(
+            cause instanceof Error
+              ? cause.message
+              : 'No se pudo cargar el directorio.',
+          )
       } finally {
         if (!controller.signal.aborted) setLoading(false)
       }
