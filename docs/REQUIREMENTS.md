@@ -31,7 +31,7 @@ Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisa
 | Contador filtrado | Cumple | Región de estado con cantidad filtrada y total |
 | Combinar nombre y departamento | Cumple | Condiciones simultáneas; prueba de intersección |
 | Tipo Contact y unión Department | Cumple | `src/types/contact.ts`; teléfono opcional e id string |
-| Código fuente en repositorio público | Pendiente de autorización | Rama `main` y commits locales; nombre previsto `geest-react-contact-manager` |
+| Código fuente en repositorio público | Pendiente de autorización | Rama `main` y commits locales; nombre previsto `geest-react-challenge` |
 | README con instalación y ejecución | Cumple localmente | `README.md` incluye npm, Docker, pruebas y build |
 | Entregar enlace al repositorio | Pendiente de publicación | No se creará ni subirá sin confirmación |
 | Deploy público (opcional) | Pendiente de autorización | Aplicación estática lista en `dist/` |

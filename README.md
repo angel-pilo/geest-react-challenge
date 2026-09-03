@@ -91,4 +91,4 @@ Se usan utilidades Tailwind, iconos SVG locales y fuentes del sistema, sin libre
 
 ## Publicación
 
-Repositorio público previsto: `geest-react-contact-manager`. Publicación y deploy pendientes de autorización del propietario. No se ha configurado un remoto ni se han publicado archivos. El enlace del repositorio y el deploy se agregarán después de publicarlos.
+Repositorio público previsto: `geest-react-challenge`. Publicación y deploy pendientes de autorización del propietario. No se ha configurado un remoto ni se han publicado archivos. El enlace del repositorio y el deploy se agregarán después de publicarlos.
