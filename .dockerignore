@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.npm-cache
+tmp
+coverage
+*.tsbuildinfo
+.env
+.env.*
+*.local
+README.md
+docs
