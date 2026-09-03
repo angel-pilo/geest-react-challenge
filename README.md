@@ -1,4 +1,4 @@
-# GEEST · Gestor de contactos
+# React Challenge · Gestor de contactos
 
 Prueba técnica frontend: un directorio de equipo con búsqueda y filtros combinados, creación de contactos y eliminación inmediata.
 

@@ -35,10 +35,10 @@ export default function App() {
         Ir al contenido
       </a>
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
+        <div className="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-8">
           <div className="flex items-center gap-10">
-            <span className="text-3xl font-extrabold tracking-[-0.07em] text-brand">
-              geest<span className="text-[#91b894]">.</span>
+            <span className="text-base font-semibold text-slate-700">
+              React Challenge
             </span>
             <span className="hidden items-center gap-2 border-l border-slate-200 pl-8 text-sm text-slate-500 sm:flex">
               <Icon name="grid" width="16" height="16" />
