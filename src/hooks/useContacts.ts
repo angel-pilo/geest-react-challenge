@@ -32,5 +32,10 @@ export function useContacts() {
     setAttempt((value) => value + 1)
   }
 
-  return { contacts, loading, error, retry }
+  function addContact(values: Omit<Contact, 'id'>) {
+    const contact = { ...values, id: crypto.randomUUID() }
+    setContacts((current) => [contact, ...current])
+  }
+
+  return { contacts, loading, error, retry, addContact }
 }
