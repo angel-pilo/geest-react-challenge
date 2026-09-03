@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type KeyboardEvent } from 'react'
 import { useFormik } from 'formik'
 import { departments, type Contact, type Department } from '../types/contact'
 import { contactSchema, type ContactFormValues } from '../validation/contactSchema'
@@ -34,6 +34,7 @@ export function ContactFormModal({ onClose, onAdd }: Props) {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     element.showModal()
+    element.querySelector<HTMLInputElement>('#name')?.focus()
     return () => {
       element.close()
       document.body.style.overflow = previousOverflow
@@ -46,7 +47,21 @@ export function ContactFormModal({ onClose, onAdd }: Props) {
   }
   const requiredEmpty = !formik.values.name.trim() || !formik.values.email.trim() || !formik.values.department
 
-  return <dialog ref={dialog} aria-labelledby="contact-modal-title" aria-describedby="contact-modal-description" onCancel={(event) => { event.preventDefault(); onClose() }}
+  function keepFocusInside(event: KeyboardEvent<HTMLDialogElement>) {
+    if (event.key !== 'Tab') return
+    const controls = event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), input, select')
+    const first = controls[0]
+    const last = controls[controls.length - 1]
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  }
+
+  return <dialog ref={dialog} aria-labelledby="contact-modal-title" aria-describedby="contact-modal-description" onKeyDown={keepFocusInside} onCancel={(event) => { event.preventDefault(); onClose() }}
     onPointerDown={(event) => { pointerStartedOutside.current = event.target === event.currentTarget }}
     onClick={(event) => { if (pointerStartedOutside.current && event.target === event.currentTarget) onClose(); pointerStartedOutside.current = false }}
     className="fixed inset-0 m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl border-0 bg-white p-0 text-slate-800 shadow-2xl backdrop:bg-slate-950/40 backdrop:backdrop-blur-xs">
@@ -57,7 +72,7 @@ export function ContactFormModal({ onClose, onAdd }: Props) {
       <form onSubmit={formik.handleSubmit} noValidate className="mt-6 space-y-4">
         {([{ field: 'name', label: 'Nombre', type: 'text', placeholder: 'Ej. Ana García', autocomplete: 'name', required: true }, { field: 'email', label: 'Email', type: 'email', placeholder: 'nombre@empresa.com', autocomplete: 'email', required: true }, { field: 'phone', label: 'Teléfono', type: 'tel', placeholder: 'Ej. +52 55 1234 5678', autocomplete: 'tel', required: false }] as const).map(({ field, label, type, placeholder, autocomplete, required }) => {
           const error = visibleError(field)
-          return <div key={field}><label htmlFor={field} className="text-sm font-medium">{label}{required ? <span className="text-brand"> *</span> : <span className="ml-2 text-xs font-normal text-slate-500">Opcional</span>}</label><input id={field} type={type} autoComplete={autocomplete} required={required} autoFocus={field === 'name'} placeholder={placeholder} {...formik.getFieldProps(field)} aria-invalid={Boolean(error)} aria-describedby={error ? `${field}-error` : undefined} className={`${inputClass} ${error ? 'border-red-500' : 'border-slate-300'}`} />{error && <p id={`${field}-error`} aria-live="polite" className="mt-1.5 text-xs text-red-700">{error}</p>}</div>
+          return <div key={field}><label htmlFor={field} className="text-sm font-medium">{label}{required ? <span className="text-brand"> *</span> : <span className="ml-2 text-xs font-normal text-slate-500">Opcional</span>}</label><input id={field} type={type} autoComplete={autocomplete} required={required} placeholder={placeholder} {...formik.getFieldProps(field)} aria-invalid={Boolean(error)} aria-describedby={error ? `${field}-error` : undefined} className={`${inputClass} ${error ? 'border-red-500' : 'border-slate-300'}`} />{error && <p id={`${field}-error`} aria-live="polite" className="mt-1.5 text-xs text-red-700">{error}</p>}</div>
         })}
         <div><label htmlFor="department" className="text-sm font-medium">Departamento <span className="text-brand">*</span></label><select id="department" required {...formik.getFieldProps('department')} aria-invalid={Boolean(visibleError('department'))} aria-describedby={visibleError('department') ? 'department-error' : undefined} className={`${inputClass} ${visibleError('department') ? 'border-red-500' : 'border-slate-300'}`}><option value="">Selecciona un departamento</option>{departments.map((department) => <option key={department}>{department}</option>)}</select>{visibleError('department') && <p id="department-error" aria-live="polite" className="mt-1.5 text-xs text-red-700">{visibleError('department')}</p>}</div>
         {formik.status && <p role="alert" className="text-sm text-red-700">{formik.status}</p>}

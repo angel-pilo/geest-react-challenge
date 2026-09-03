@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, expect, it, vi } from 'vitest'
 import App from './App'
@@ -103,4 +103,87 @@ it('elimina por id y actualiza la lista y el contador', async () => {
   expect(screen.queryByText('Ana García')).not.toBeInTheDocument()
   expect(screen.getAllByRole('listitem')).toHaveLength(7)
   expect(screen.getByRole('status')).toHaveTextContent('7 contactos de 7')
+})
+
+it('ofrece reintentar la carga y recupera el directorio', async () => {
+  const user = userEvent.setup()
+  vi.mocked(fetch).mockRejectedValueOnce(new Error('Sin conexión'))
+  render(<App />)
+  await user.click(await screen.findByRole('button', { name: 'Reintentar' }))
+  expect(await screen.findByText('Ana García')).toBeInTheDocument()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+})
+
+it.each([
+  { ok: false, json: async () => data },
+  { ok: true, json: async () => ({ contacts: data }) },
+  { ok: true, json: async () => [data[0], data[0]] },
+])('rechaza respuestas HTTP y datos inválidos (%#)', async (response) => {
+  vi.mocked(fetch).mockResolvedValue(response as Response)
+  render(<App />)
+  expect(await screen.findByRole('alert')).toBeInTheDocument()
+  expect(screen.queryByRole('list')).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Agregar contacto' })).toBeDisabled()
+})
+
+it('muestra el estado sin contactos tras eliminar el último', async () => {
+  const user = userEvent.setup()
+  vi.mocked(fetch).mockResolvedValue({ ok: true, json: async () => [data[0]] } as Response)
+  render(<App />)
+  await user.click(await screen.findByRole('button', { name: 'Eliminar a Ana García' }))
+  expect(screen.getByText('Aún no hay contactos')).toBeInTheDocument()
+  expect(screen.queryByText('No encontramos resultados')).not.toBeInTheDocument()
+  expect(screen.getByRole('status')).toHaveTextContent('0 contactos de 0')
+})
+
+it.each(['Cerrar modal', 'Cancelar'])('cierra mediante %s sin guardar y devuelve el foco', async (action) => {
+  const user = userEvent.setup()
+  render(<App />)
+  await screen.findByText('Ana García')
+  const trigger = screen.getByRole('button', { name: 'Agregar contacto' })
+  await user.click(trigger)
+  await user.type(screen.getByLabelText('Nombre *'), 'Borrador')
+  await user.click(screen.getByRole('button', { name: action }))
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  expect(trigger).toHaveFocus()
+  expect(screen.getAllByRole('listitem')).toHaveLength(8)
+})
+
+it('responde al evento cancel nativo de Escape y al clic fuera', async () => {
+  const user = userEvent.setup()
+  render(<App />)
+  await screen.findByText('Ana García')
+  await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
+  fireEvent(screen.getByRole('dialog'), new Event('cancel', { bubbles: false, cancelable: true }))
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
+  await user.click(screen.getByRole('heading', { name: 'Agregar contacto' }))
+  expect(screen.getByRole('dialog')).toBeInTheDocument()
+  await user.click(screen.getByRole('dialog'))
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+})
+
+it('mantiene guardar deshabilitado con nombre vacío o departamento ausente', async () => {
+  const user = userEvent.setup()
+  render(<App />)
+  await screen.findByText('Ana García')
+  await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
+  await user.type(screen.getByLabelText('Nombre *'), '   ')
+  await user.type(screen.getByLabelText('Email *'), 'valido@example.com')
+  await user.selectOptions(screen.getByLabelText('Departamento *'), 'Ventas')
+  expect(await screen.findByText('Escribe el nombre del contacto.')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Guardar contacto' })).toBeDisabled()
+  await user.type(screen.getByLabelText('Nombre *'), 'Contacto')
+  await user.selectOptions(screen.getByLabelText('Departamento *'), '')
+  expect(screen.getByRole('button', { name: 'Guardar contacto' })).toBeDisabled()
+})
+
+it('restaura data.json al montar una nueva sesión', async () => {
+  const user = userEvent.setup()
+  const first = render(<App />)
+  await user.click(await screen.findByRole('button', { name: 'Eliminar a Ana García' }))
+  first.unmount()
+  render(<App />)
+  expect(await screen.findByText('Ana García')).toBeInTheDocument()
+  expect(screen.getAllByRole('listitem')).toHaveLength(8)
 })
