@@ -37,5 +37,9 @@ export function useContacts() {
     setContacts((current) => [contact, ...current])
   }
 
-  return { contacts, loading, error, retry, addContact }
+  function deleteContact(id: string) {
+    setContacts((current) => current.filter((contact) => contact.id !== id))
+  }
+
+  return { contacts, loading, error, retry, addContact, deleteContact }
 }
