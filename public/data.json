@@ -1,0 +1,10 @@
+[
+  { "id": "a8290ad6-8829-441c-a001-000000000001", "name": "Ana García", "email": "ana.garcia@example.com", "phone": "+52 55 1234 5678", "department": "Ventas" },
+  { "id": "a8290ad6-8829-441c-a001-000000000002", "name": "Carlos Mendoza", "email": "carlos.mendoza@example.com", "phone": "+52 33 2345 6789", "department": "Desarrollo" },
+  { "id": "a8290ad6-8829-441c-a001-000000000003", "name": "Sofía Ramírez", "email": "sofia.ramirez@example.com", "phone": "+52 55 3456 7890", "department": "Marketing" },
+  { "id": "a8290ad6-8829-441c-a001-000000000004", "name": "Diego Torres", "email": "diego.torres@example.com", "phone": "+52 81 4567 8901", "department": "Soporte" },
+  { "id": "a8290ad6-8829-441c-a001-000000000005", "name": "Valentina López", "email": "valentina.lopez@example.com", "phone": "+52 55 5678 9012", "department": "Desarrollo" },
+  { "id": "a8290ad6-8829-441c-a001-000000000006", "name": "Andrés Rivera", "email": "andres.rivera@example.com", "department": "Ventas" },
+  { "id": "a8290ad6-8829-441c-a001-000000000007", "name": "Mariana Flores", "email": "mariana.flores@example.com", "phone": "+52 33 7890 1234", "department": "Marketing" },
+  { "id": "a8290ad6-8829-441c-a001-000000000008", "name": "Pablo Hernández", "email": "pablo.hernandez@example.com", "phone": "+52 81 8901 2345", "department": "Soporte" }
+]
