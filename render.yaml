@@ -1,0 +1,7 @@
+services:
+  - type: web
+    runtime: static
+    name: geest-react-challenge
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit

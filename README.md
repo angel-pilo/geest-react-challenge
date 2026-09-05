@@ -78,6 +78,7 @@ src/
 Dockerfile                    Construcción y servicio estático
 docker-compose.yml            Ejecución local reproducible
 nginx.conf                    Configuración de Nginx
+render.yaml                   Despliegue como sitio estático en Render
 docs/REQUIREMENTS.md           Matriz de cumplimiento y verificación
 ```
 
