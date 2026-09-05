@@ -1,6 +1,6 @@
 # Matriz de cumplimiento
 
-Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisadas visualmente antes de implementar. Los requisitos de publicación se ejecutarán tras la autorización explícita solicitada por el propietario.
+Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisadas visualmente antes de implementar.
 
 ## Requisitos del PDF
 
@@ -31,10 +31,10 @@ Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisa
 | Contador filtrado | Cumple | Región de estado con cantidad filtrada y total |
 | Combinar nombre y departamento | Cumple | Condiciones simultáneas; prueba de intersección |
 | Tipo Contact y unión Department | Cumple | `src/types/contact.ts`; teléfono opcional e id string |
-| Código fuente en repositorio público | Pendiente de autorización | Rama `main` y commits locales; nombre previsto `geest-react-challenge` |
+| Código fuente en repositorio público | Cumple | `https://github.com/angel-pilo/geest-react-challenge` en rama `main` |
 | README con instalación y ejecución | Cumple localmente | `README.md` incluye npm, Docker, pruebas y build |
-| Entregar enlace al repositorio | Pendiente de publicación | No se creará ni subirá sin confirmación |
-| Deploy público (opcional) | Pendiente de autorización | Aplicación estática lista en `dist/` |
+| Entregar enlace al repositorio | Cumple | Enlace incluido en el README |
+| Deploy público (opcional) | Cumple | `https://geest-react-challenge.onrender.com/` |
 
 ## Requisitos adicionales del encargo
 
@@ -56,7 +56,7 @@ Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisa
 | Excluir dependencias y build de Git | `.gitignore` y `.dockerignore` |
 | Rama main e identidad real | `main`; identidad Git preexistente verificada |
 | Commits por etapas verificadas | Historial local con lint, test y build antes de cada commit |
-| Revisar GitHub CLI antes de publicar | No disponible en PATH ni en su ruta habitual; autenticación pendiente |
+| Revisar GitHub CLI antes de publicar | GitHub CLI oficial autenticado como `angel-pilo` |
 
 ## Verificación local
 
@@ -70,3 +70,4 @@ Fuente: las dos páginas de “Prueba Frontend Document.pdf”, leídas y revisa
 - `npm run typecheck`: correcto.
 - Docker: `docker compose up --build -d` construye y ejecuta correctamente; el servicio llega a estado `healthy`. `nginx -t` correcto, HTML y JSON responden HTTP 200; JSON contiene los ocho contactos iniciales.
 - Producción en Nginx: creación, eliminación, teclado y los cinco anchos responsive verificados en navegador.
+- Render: sitio estático publicado por Blueprint y verificado con los ocho contactos iniciales.

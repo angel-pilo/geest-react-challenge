@@ -1,6 +1,9 @@
 # React Challenge · Gestor de contactos
 
-Prueba técnica frontend: un directorio de equipo con búsqueda y filtros combinados, creación de contactos y eliminación inmediata.
+Prueba técnica frontend: una lista de contactos con búsqueda y filtros combinados, creación y eliminación inmediata.
+
+- **Aplicación:** [geest-react-challenge.onrender.com](https://geest-react-challenge.onrender.com/)
+- **Repositorio:** [github.com/angel-pilo/geest-react-challenge](https://github.com/angel-pilo/geest-react-challenge)
 
 ## Tecnologías
 
@@ -92,4 +95,4 @@ Se usan utilidades Tailwind, iconos SVG locales y fuentes del sistema, sin libre
 
 ## Publicación
 
-Repositorio público previsto: `geest-react-challenge`. Publicación y deploy pendientes de autorización del propietario. No se ha configurado un remoto ni se han publicado archivos. El enlace del repositorio y el deploy se agregarán después de publicarlos.
+El código está publicado en el repositorio público [`angel-pilo/geest-react-challenge`](https://github.com/angel-pilo/geest-react-challenge). La rama `main` se despliega como sitio estático en [Render](https://geest-react-challenge.onrender.com/) mediante `render.yaml`.
