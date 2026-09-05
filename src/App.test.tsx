@@ -101,7 +101,7 @@ it('rechaza números en el nombre, dominios incompletos y letras en el teléfono
   expect(screen.getByText('Escribe un email válido.')).toBeInTheDocument()
   expect(
     screen.getByText(
-      'Usa únicamente números y los símbolos +, espacios, paréntesis o guiones.',
+      'Escribe un teléfono mexicano de 10 dígitos; el código +52 es opcional.',
     ),
   ).toBeInTheDocument()
   expect(
@@ -120,6 +120,7 @@ it('crea un contacto con UUID, actualiza el contador y limpia el formulario', as
   await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
   await user.type(screen.getByLabelText('Nombre *'), '  Lucía Vega  ')
   await user.type(screen.getByLabelText('Email *'), 'lucia@example.com')
+  await user.type(screen.getByLabelText(/Teléfono/), '55 1234 5678')
   await user.selectOptions(screen.getByLabelText('Departamento *'), 'Ventas')
   await waitFor(() =>
     expect(

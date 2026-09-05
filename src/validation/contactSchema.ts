@@ -10,7 +10,12 @@ export type ContactFormValues = {
 
 const namePattern = /^[\p{L}\p{M}]+(?:[- '][\p{L}\p{M}]+)*$/u
 const emailWithCompleteDomain = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/
-const phonePattern = /^\+?[0-9 ()-]{7,20}$/
+
+function isValidMexicanPhone(value?: string) {
+  if (!value) return true
+  const compactPhone = value.replace(/[ ()-]/g, '')
+  return /^(?:\+52)?\d{10}$/.test(compactPhone)
+}
 
 export const contactSchema = yup.object({
   name: yup
@@ -30,10 +35,11 @@ export const contactSchema = yup.object({
   phone: yup
     .string()
     .trim()
-    .matches(phonePattern, {
-      message: 'Usa únicamente números y los símbolos +, espacios, paréntesis o guiones.',
-      excludeEmptyString: true,
-    }),
+    .test(
+      'mexican-phone',
+      'Escribe un teléfono mexicano de 10 dígitos; el código +52 es opcional.',
+      isValidMexicanPhone,
+    ),
   department: yup
     .string()
     .oneOf(departments, 'Selecciona un departamento.')
