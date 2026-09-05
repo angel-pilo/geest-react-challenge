@@ -13,7 +13,7 @@ React 19, TypeScript, Vite 6, Tailwind CSS 4, Formik y Yup. Pruebas con Vitest y
 
 - Carga asíncrona de `public/data.json`, skeleton y recuperación ante errores.
 - Lista responsive con nombre, email, teléfono opcional y departamento.
-- Modal con validación reactiva de nombre, email y teléfono, guardado deshabilitado si es inválido y UUID mediante `crypto.randomUUID()`.
+- Modal con validación reactiva de nombre, email y teléfono, guardado deshabilitado si es inválido y UUID mediante `crypto.randomUUID()`; cada fila expone el identificador en `data-contact-id` para facilitar su inspección técnica.
 - Búsqueda por nombre sin distinguir mayúsculas ni acentos, combinada con chips de departamento.
 - Contador de resultados y estados distintos para directorio vacío y filtros sin coincidencias.
 - Eliminación inmediata, controles con etiquetas accesibles y modal con Escape, clic fuera, foco contenido y restauración del foco.

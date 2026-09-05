@@ -111,9 +111,10 @@ it('rechaza números en el nombre, dominios incompletos y letras en el teléfono
 
 it('crea un contacto con UUID, actualiza el contador y limpia el formulario', async () => {
   const user = userEvent.setup()
+  const uuidValue = 'bb875a62-8141-42f2-a3ca-35203fd85b42'
   const uuid = vi
     .spyOn(crypto, 'randomUUID')
-    .mockReturnValue('bb875a62-8141-42f2-a3ca-35203fd85b42')
+    .mockReturnValue(uuidValue)
   render(<App />)
   await screen.findByText('Ana García')
   await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
@@ -126,7 +127,12 @@ it('crea un contacto con UUID, actualiza el contador y limpia el formulario', as
     ).toBeEnabled(),
   )
   await user.click(screen.getByRole('button', { name: 'Guardar contacto' }))
-  expect(await screen.findByText('Lucía Vega')).toBeInTheDocument()
+  const createdContact = await screen.findByText('Lucía Vega')
+  expect(createdContact).toBeInTheDocument()
+  expect(createdContact.closest('li')).toHaveAttribute(
+    'data-contact-id',
+    uuidValue,
+  )
   expect(uuid).toHaveBeenCalledOnce()
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   expect(screen.getByRole('status')).toHaveTextContent('9 contactos')

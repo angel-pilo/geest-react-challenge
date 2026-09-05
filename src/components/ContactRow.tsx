@@ -16,7 +16,10 @@ export function ContactRow({
     .map((part) => part[0])
     .join('')
   return (
-    <li className="relative grid gap-3 border-t border-slate-100 px-5 py-5 transition-colors hover:bg-slate-50/70 lg:grid-cols-[1.15fr_1.4fr_1fr_0.8fr_2.5rem] lg:items-center lg:gap-4 lg:px-7">
+    <li
+      data-contact-id={contact.id}
+      className="relative grid gap-3 border-t border-slate-100 px-5 py-5 transition-colors hover:bg-slate-50/70 lg:grid-cols-[1.15fr_1.4fr_1fr_0.8fr_2.5rem] lg:items-center lg:gap-4 lg:px-7"
+    >
       <div className="flex min-w-0 items-center gap-3 pr-10 lg:pr-0">
         <span
           aria-hidden="true"
