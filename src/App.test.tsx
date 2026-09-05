@@ -83,6 +83,32 @@ it('valida desde el inicio y muestra errores mientras se escribe', async () => {
   ).toBeInTheDocument()
 })
 
+it('rechaza números en el nombre, dominios incompletos y letras en el teléfono', async () => {
+  const user = userEvent.setup()
+  render(<App />)
+  await screen.findByText('Ana García')
+  await user.click(screen.getByRole('button', { name: 'Agregar contacto' }))
+  await user.type(screen.getByLabelText('Nombre *'), 'Ana 123')
+  await user.type(screen.getByLabelText('Email *'), 'a@a')
+  await user.type(screen.getByLabelText(/Teléfono/), '55 ABC 1234')
+  await user.selectOptions(screen.getByLabelText('Departamento *'), 'Ventas')
+
+  expect(
+    await screen.findByText(
+      'Usa únicamente letras, espacios, apóstrofes o guiones.',
+    ),
+  ).toBeInTheDocument()
+  expect(screen.getByText('Escribe un email válido.')).toBeInTheDocument()
+  expect(
+    screen.getByText(
+      'Usa únicamente números y los símbolos +, espacios, paréntesis o guiones.',
+    ),
+  ).toBeInTheDocument()
+  expect(
+    screen.getByRole('button', { name: 'Guardar contacto' }),
+  ).toBeDisabled()
+})
+
 it('crea un contacto con UUID, actualiza el contador y limpia el formulario', async () => {
   const user = userEvent.setup()
   const uuid = vi
@@ -115,6 +141,15 @@ it('busca por nombre ignorando mayúsculas y actualiza el contador', async () =>
   await user.type(screen.getByRole('searchbox'), 'cARLos')
   expect(screen.getByText('Carlos Mendoza')).toBeInTheDocument()
   expect(screen.queryByText('Ana García')).not.toBeInTheDocument()
+  expect(screen.getByRole('status')).toHaveTextContent('1 contacto de 8')
+})
+
+it('busca por nombre ignorando acentos', async () => {
+  const user = userEvent.setup()
+  render(<App />)
+  await screen.findByText('Ana García')
+  await user.type(screen.getByRole('searchbox'), 'sofia')
+  expect(screen.getByText('Sofía Ramírez')).toBeInTheDocument()
   expect(screen.getByRole('status')).toHaveTextContent('1 contacto de 8')
 })
 

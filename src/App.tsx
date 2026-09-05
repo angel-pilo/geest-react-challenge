@@ -7,6 +7,7 @@ import { ContactSkeleton } from './components/ContactSkeleton'
 import { EmptyState } from './components/EmptyState'
 import { Icon } from './components/Icon'
 import { useContacts } from './hooks/useContacts'
+import { normalizeSearchText } from './utils/text'
 
 export default function App() {
   const { contacts, loading, error, retry, addContact, deleteContact } =
@@ -14,11 +15,10 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [department, setDepartment] = useState<Department | 'Todos'>('Todos')
+  const normalizedQuery = normalizeSearchText(query.trim())
   const filteredContacts = contacts.filter(
     (contact) =>
-      contact.name
-        .toLocaleLowerCase('es')
-        .includes(query.trim().toLocaleLowerCase('es')) &&
+      normalizeSearchText(contact.name).includes(normalizedQuery) &&
       (department === 'Todos' || contact.department === department),
   )
   function clearFilters() {
